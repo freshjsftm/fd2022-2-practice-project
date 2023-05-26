@@ -1,6 +1,8 @@
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
+
 const signJWT = promisify(jwt.sign);
+const verifyJWT = promisify(jwt.verify);
 
 const {
   ACCESS_TOKEN_SECRET,
@@ -8,6 +10,8 @@ const {
   REFRESH_TOKEN_SECRET,
   REFRESH_TOKEN_TIME,
 } = require('../constants');
+
+const verifyToken = (token, { secret }) => verifyJWT(token, secret);
 
 const createToken = (payload, { secret, time }) => {
   return signJWT(
@@ -23,15 +27,21 @@ const createToken = (payload, { secret, time }) => {
   );
 };
 
-module.exports.createTokenPair = async (payload) => {
+module.exports.createTokenPair = async payload => {
   return {
     access: await createToken(payload, {
       secret: ACCESS_TOKEN_SECRET,
-      time: ACCESS_TOKEN_TIME
+      time: ACCESS_TOKEN_TIME,
     }),
     refresh: await createToken(payload, {
       secret: REFRESH_TOKEN_SECRET,
-      time: REFRESH_TOKEN_TIME
-    })
-  }
-}
+      time: REFRESH_TOKEN_TIME,
+    }),
+  };
+};
+
+module.exports.verifyAccessToken = token =>
+  verifyToken(token, { secret: ACCESS_TOKEN_SECRET });
+
+module.exports.verifyRefreshToken = token =>
+  verifyToken(token, { secret: REFRESH_TOKEN_SECRET });

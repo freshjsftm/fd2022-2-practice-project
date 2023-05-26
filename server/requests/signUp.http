@@ -6,6 +6,6 @@ Content-Type: application/json
   "lastName":"buyer",
   "displayName":"buyer",
   "password":"buyer@gmail.com",
-  "email":"buyer5@gmail.com",
+  "email":"buyer6@gmail.com",
   "role":"customer"
 }

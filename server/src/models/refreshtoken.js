@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   RefreshToken.init(
     {
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       value: {
         type: DataTypes.TEXT,
         allowNull: false,
-      },
-      userId: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
       },
       fingerprint: DataTypes.STRING,
       ua: DataTypes.STRING,

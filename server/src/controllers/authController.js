@@ -1,25 +1,18 @@
 const createHTTPErrors = require('http-errors');
-const { User } = require('../models');
-module.exports.signUp = async (req, res, next) => {
-  try {
-  } catch (error) {
-    next(error);
-  }
-};
+const { User, RefreshToken } = require('../models');
+const AuthServices = require('../services/authServices');
 
 module.exports.signIn = async (req, res, next) => {
   try {
     const {
       body: { email, password },
     } = req;
-    //find user
     const user = await User.findOne({
       where: { email },
     });
-    //compare password
     if (user && (await user.comparePassword(password))) {
-      //create token pair
-      //send user with token pair
+      const data = await AuthServices.createSession(user);
+      return res.status(200).send({ data });
     }
     next(createHTTPErrors(401, 'Unauthorized'));
   } catch (error) {
@@ -27,8 +20,30 @@ module.exports.signIn = async (req, res, next) => {
   }
 };
 
+module.exports.signUp = async (req, res, next) => {
+  try {
+    const { body } = req;
+    const user = await User.create(body);
+    if (user) {
+      const data = await AuthServices.createSession(user);
+      return res.status(201).send({ data });
+    }
+    next(createHTTPErrors(400, 'Bad request'));
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports.refresh = async (req, res, next) => {
   try {
+    const {
+      body: { refreshToken },
+    } = req;
+    const instanceRefreshToken = await RefreshToken.findOne({
+      where: { value: refreshToken },
+    });
+    const data = await AuthServices.refreshSession(instanceRefreshToken);
+    res.status(200).send({ data });
   } catch (error) {
     next(error);
   }

@@ -1,6 +1,13 @@
 module.exports = {
-  JWT_SECRET: 'asdasdasd4as5d4as8d7a8sd4as65d4a8sd7asd4as56d4',
-  ACCESS_TOKEN_TIME: 60 * 60,
+  // JWT_SECRET
+  ACCESS_TOKEN_SECRET: 'asdasdasd4as5d4as8d7a8sd4as65d4a8sd7asd4as56d4',
+  ACCESS_TOKEN_TIME: '3m',
+
+  REFRESH_TOKEN_SECRET: 'ejhgfsegrfwjehgfdsjgaeyshasdvqwiru3457843jhgasweywfhs',
+  REFRESH_TOKEN_TIME: '10d',
+
+  MAX_DEVICES_AMOUNT: 3,
+
   SALT_ROUNDS: 5,
   SQUADHELP_BANK_NUMBER: '4564654564564564',
   SQUADHELP_BANK_NAME: 'SquadHelp',

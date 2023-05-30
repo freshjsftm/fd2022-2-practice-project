@@ -2,10 +2,10 @@ POST http://localhost:3000/auth/sign-up HTTP/1.1
 Content-Type: application/json
 
 {
-  "firstName":"buyer",
-  "lastName":"buyer",
-  "displayName":"buyer",
-  "password":"buyer@gmail.com",
-  "email":"buyer6@gmail.com",
+  "firstName":"buyer22",
+  "lastName":"buyer22",
+  "displayName":"buyer22",
+  "password":"buyer22@gmail.com",
+  "email":"buyer22@gmail.com",
   "role":"customer"
 }

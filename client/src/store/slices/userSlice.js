@@ -16,7 +16,9 @@ export const getUser = createAsyncThunk(
   `${USER_SLICE_NAME}/getUser`,
   async (replace, { rejectWithValue }) => {
     try {
-      const { data } = await restController.getUser();
+      const {
+        data: { data },
+      } = await restController.getUser();
       controller.subscribe(data.id);
       if (replace) {
         replace('/');
@@ -48,11 +50,11 @@ export const updateUser = createAsyncThunk(
 );
 
 const reducers = {
-  clearUserStore: state => {
+  clearUserStore: (state, action) => {
     state.error = null;
     state.data = null;
   },
-  clearUserError: state => {
+  clearUserError: (state, action)  => {
     state.error = null;
   },
 };

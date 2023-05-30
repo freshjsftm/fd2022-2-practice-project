@@ -1,3 +1,4 @@
+const createHTTPErrors = require('http-errors');
 const {
   verifyAccessToken,
   verifyRefreshToken,
@@ -7,10 +8,13 @@ module.exports.checkAccessToken = async (req, res, next) => {
   try {
     const {
       headers: { authorization },
-    } = req; //Bearer asddfhgeh
-    const [, accessToken] = authorization.split(' ');
-    req.tokenData = await verifyAccessToken(accessToken);
-    next();
+    } = req; 
+    if (authorization) {
+      const [, accessToken] = authorization.split(' ');
+      req.tokenData = await verifyAccessToken(accessToken);
+      return next();
+    }
+    next(createHTTPErrors(401, 'Need token'));
   } catch (error) {
     next(error);
   }
@@ -20,7 +24,7 @@ module.exports.checkRefreshToken = async (req, res, next) => {
   try {
     const { body: refreshToken } = req;
     req.tokenData = await verifyRefreshToken(refreshToken);
-    next();
+    return next();
   } catch (error) {
     next(error);
   }

@@ -18,6 +18,7 @@ const initialState = {
 export const checkAuth = decorateAsyncThunk({
   key: `${AUTH_SLICE_NAME}/checkAuth`,
   thunk: async ({ data: authInfo, history, authMode }) => {
+    console.log('authInfo ==>>', authInfo);
     authMode === CONSTANTS.AUTH_MODE.LOGIN
       ? await restController.loginRequest(authInfo)
       : await restController.registerRequest(authInfo);

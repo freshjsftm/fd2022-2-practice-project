@@ -5,9 +5,10 @@ import Spinner from '../Spinner/Spinner';
 
 const OnlyNotAuthorizedUserHoc = Component => {
   class HocForLoginSignUp extends React.Component {
-    componentDidMount () {
-      this.props.checkAuth(this.props.history.replace);
-    }
+
+    // componentDidMount () {
+    //   this.props.checkAuth(this.props.history.replace);
+    // }
 
     render () {
       if (this.props.isFetching) {

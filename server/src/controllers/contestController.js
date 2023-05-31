@@ -7,8 +7,8 @@ const UtilFunctions = require('../utils/functions');
 const CONSTANTS = require('../constants');
 
 module.exports.dataForContest = async (req, res, next) => {
-  const response = {};
   try {
+    const response = {};
     const {
       body: { characteristic1, characteristic2 },
     } = req;
@@ -25,7 +25,7 @@ module.exports.dataForContest = async (req, res, next) => {
       },
     });
     if (!characteristics) {
-      return next(new ServerError());
+      return next(new ServerError('not found selects'));
     }
     characteristics.forEach(characteristic => {
       if (!response[characteristic.type]) {

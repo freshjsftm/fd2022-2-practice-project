@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import styles from './Header.module.sass';
 import CONSTANTS from '../../constants';
-import { clearUserStore } from '../../store/slices/userSlice';
-import { getUser } from '../../store/slices/userSlice';
+import { clearUserStore, getUser } from '../../store/slices/userSlice';
 
 class Header extends React.Component {
   componentDidMount () {
@@ -14,6 +13,7 @@ class Header extends React.Component {
   }
 
   logOut = () => {
+    console.log('logout');
     localStorage.clear();
     this.props.clearUserStore();
     this.props.history.replace('/login');
@@ -44,7 +44,7 @@ class Header extends React.Component {
             <ul>
               <li>
                 <Link to='/dashboard' style={{ textDecoration: 'none' }}>
-                  <span>View Dashboard</span>
+                  <span>View Dashboard 1</span>
                 </Link>
               </li>
               <li>

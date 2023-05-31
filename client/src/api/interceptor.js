@@ -10,7 +10,8 @@ let accessToken = null;
 
 httpClient.interceptors.request.use(
   config => {
-    if (accessToken) {
+    const refreshToken = window.localStorage.getItem(CONTANTS.REFRESH_TOKEN);
+    if (accessToken && refreshToken) {
       config.headers = {
         ...config.headers,
         Authorization: `Bearer ${accessToken}`,
@@ -42,13 +43,20 @@ httpClient.interceptors.response.use(
     return response;
   },
   err => {
-    if (err.response.status === 401) {
-      return history.replace('/login');
+    console.log('history.location', history.location);
+    if (
+      err.response.status === 401 &&
+      window.location.pathname !== '/login' &&
+      window.location.pathname !== '/'
+    ) {
+      console.log('status 401  ===>>> login', history.location.pathname);
+      history.replace('/login');
+      return;
     }
 
     const refreshToken = window.localStorage.getItem(CONTANTS.REFRESH_TOKEN);
     if (err.response.status === 408 && refreshToken) {
-      console.log('auth/refresh');
+      console.log('status 408  ===>>> auth/refresh');
       const {
         data: {
           data: {

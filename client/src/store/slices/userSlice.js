@@ -7,7 +7,7 @@ import { changeEditModeOnUserProfile } from './userProfileSlice';
 const USER_SLICE_NAME = 'user';
 
 const initialState = {
-  isFetching: true,
+  isFetching: false,
   error: null,
   data: null,
 };
@@ -54,7 +54,7 @@ const reducers = {
     state.error = null;
     state.data = null;
   },
-  clearUserError: (state, action)  => {
+  clearUserError: (state, action) => {
     state.error = null;
   },
 };

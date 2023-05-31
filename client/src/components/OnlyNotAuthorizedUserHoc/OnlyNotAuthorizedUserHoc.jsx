@@ -5,10 +5,9 @@ import Spinner from '../Spinner/Spinner';
 
 const OnlyNotAuthorizedUserHoc = Component => {
   class HocForLoginSignUp extends React.Component {
-
-    // componentDidMount () {
-    //   this.props.checkAuth(this.props.history.replace);
-    // }
+    componentDidMount () {
+      this.props.getUser(this.props.history.replace);
+    }
 
     render () {
       if (this.props.isFetching) {
@@ -24,7 +23,7 @@ const OnlyNotAuthorizedUserHoc = Component => {
   const mapStateToProps = state => state.userStore;
 
   const mapDispatchToProps = dispatch => ({
-    checkAuth: replace => dispatch(getUser(replace)),
+    getUser: replace => dispatch(getUser(replace)),
   });
 
   return connect(mapStateToProps, mapDispatchToProps)(HocForLoginSignUp);
